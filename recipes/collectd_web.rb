@@ -24,7 +24,7 @@ include_recipe "apache2"
   package name
 end
 
-directory node[:collectd][:collectd_web][:path] do
+directory node['collectd']['collectd_web']['path'] do
   owner "root"
   group "root"
   mode "755"
@@ -32,9 +32,9 @@ end
 
 bash "install_collectd_web" do
   user "root"
-  cwd node[:collectd][:collectd_web][:path]
+  cwd node['collectd']['collectd_web']['path']
   not_if do
-    File.exists?(File.join(node[:collectd][:collectd_web][:path], "index.html"))
+    File.exists?(File.join(node['collectd']['collectd_web']['path'], "index.html"))
   end
   code <<-EOH
     wget --no-check-certificate -O collectd-web.tar.gz https://github.com/httpdss/collectd-web/tarball/master
