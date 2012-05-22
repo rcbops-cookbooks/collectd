@@ -30,3 +30,13 @@ end
 collectd_plugin "syslog" do
   options :log_level => "info"
 end
+
+# let's actually collect some stuff
+
+include_recipe "collectd-plugins::cpu"
+include_recipe "collectd-plugins::df"
+include_recipe "collectd-plugins::disk"
+include_recipe "collectd-plugins::interface"
+include_recipe "collectd-plugins::memory"
+include_recipe "collectd-plugins::swap"
+collectd_plugin "load"
