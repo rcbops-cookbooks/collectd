@@ -38,7 +38,7 @@ collectd_plugin "network" do
 end
 
 collectd_plugin "syslog" do
-  options :log_level => "info"
+  options :log_level => "Info"
 end
 
 # let's actually collect some stuff
