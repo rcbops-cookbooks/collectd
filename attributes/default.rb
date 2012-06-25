@@ -24,6 +24,7 @@ default['collectd']['interval'] = 10
 default['collectd']['read_threads'] = 5
 default['collectd']['is_proxy'] = true
 default['collectd']['remote']['ip'] = '1.2.3.4'
+default['collectd']['timeout'] = 30  # 5 minutes, with default interval
 
 default['collectd']['collectd_web']['path'] = "/srv/collectd_web"
 default['collectd']['collectd_web']['hostname'] = "collectd"

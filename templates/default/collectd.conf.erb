@@ -13,6 +13,9 @@ PluginDir "<%= @node['collectd']['plugin_dir'] %>"
 TypesDB "<%= @node['collectd']['types_db'] %>"
 Interval "<%= @node['collectd']['interval'] %>"
 ReadThreads "<%= @node['collectd']['read_threads'] %>"
+Timeout "<%= @node['collectd']['timeout'] %>"
 
 Include "/etc/collectd/plugins/*.conf"
+# include receipe generated thresholds, plus locally configured
+Include "/etc/collectd/thresholds/*.conf"
 Include "/etc/collectd/thresholds.conf"
