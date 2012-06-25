@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil,  do
+define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil  do
   template "/etc/collectd/thresholds/#{params[:name]}.conf" do
     owner "root"
     group "root"
