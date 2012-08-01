@@ -2,7 +2,7 @@
 # Cookbook Name:: collectd
 # Definition:: collectd_threshold
 #
-# Copyright 2012, Rackspace Hosting
+# Copyright 2012, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,11 @@
 #
 
 define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil  do
-  template "/etc/collectd/thresholds/#{params[:name]}.conf" do
+  config = "/etc/collectd/thresholds/#{params[:name]}.conf"
+
+  node["monitoring"]["configs"] << config
+
+  template config do
     owner "root"
     group "root"
     mode "644"
