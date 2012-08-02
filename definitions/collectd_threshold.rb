@@ -18,7 +18,11 @@
 #
 
 define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil  do
-  template "/etc/collectd/thresholds/#{params[:name]}.conf" do
+  config = "/etc/collectd/thresholds/#{params[:name]}.conf"
+
+  node["monitoring"]["configs"] << config
+
+  template config do
     owner "root"
     group "root"
     mode "644"
