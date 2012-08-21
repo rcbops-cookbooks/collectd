@@ -17,11 +17,15 @@
 # limitations under the License.
 #
 
+if platform?(%w(redhat centos))
+  include_recipe "yum::epel"
+end
+
 package "collectd" do
   case node['platform']
     when "ubuntu"
       package_name "collectd-core"
-    when "fedora"
+    when "fedora", "redhat", "centos"
       package_name "collectd"
   end
 end
