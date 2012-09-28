@@ -17,14 +17,31 @@
 # limitations under the License.
 #
 
-default['collectd']['base_dir'] = "/var/lib/collectd"
-default['collectd']['plugin_dir'] = "/usr/lib/collectd"
-default['collectd']['types_db'] = "/usr/share/collectd/types.db"
-default['collectd']['interval'] = 10
-default['collectd']['read_threads'] = 5
-default['collectd']['is_proxy'] = true
-default['collectd']['remote']['ip'] = '1.2.3.4'
-default['collectd']['timeout'] = 30  # 5 minutes, with default interval
+default['collectd']['types_db'] = "/usr/share/collectd/types.db"        # node_attribute
+default['collectd']['interval'] = 10                                    # node_attribute (inherited from cluster?)
+default['collectd']['read_threads'] = 5                                 # node_attribute (inherited from cluster?)
+default['collectd']['is_proxy'] = true                                  # node_attribute
+default['collectd']['remote']['ip'] = '1.2.3.4'                         # node_attribute (inherited from cluster?)
+default['collectd']['timeout'] = 30  # 5 minutes, with default interval # node_attribute (inherited from cluster?)
 
-default['collectd']['collectd_web']['path'] = "/srv/collectd_web"
-default['collectd']['collectd_web']['hostname'] = "collectd"
+default['collectd']['collectd_web']['path'] = "/srv/collectd_web"       # node_attribute
+default['collectd']['collectd_web']['hostname'] = "collectd"            # node_attribute
+
+case platform
+when "redhat", "centos", "fedora"
+  default["collectd"]["platform"] = {
+    "collectd_packages" => ["collectd"],                                # node_attribute
+    "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute
+    "collectd_plugin_dir" => "/usr/lib64/collectd",                     # node_attribute
+    "collectd_config_file" => "/etc/collectd.conf",                     # node_attribute
+    "package_overrides" => ""                                           # node_attribute
+  }
+when "ubuntu"
+  default["collectd"]["platform"] = {
+    "collectd_packages" => ["collectd-core"],                           # node_attribute
+    "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute
+    "collectd_plugin_dir" => "/usr/lib/collectd",                       # node_attribute
+    "collectd_config_file" => "/etc/collectd/collectd.conf",            # node_attribute
+    "package_overrides" => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'" # node_attribute
+  }
+end
