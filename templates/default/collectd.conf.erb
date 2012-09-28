@@ -8,8 +8,8 @@
 
 Hostname "<%= @node['fqdn'] %>"
 FQDNLookup true
-BaseDir "<%= @node['collectd']['base_dir'] %>"
-PluginDir "<%= @node['collectd']['plugin_dir'] %>"
+BaseDir "<%= @collectd_base_dir %>"
+PluginDir "<%= @collectd_plugin_dir %>"
 TypesDB "<%= @node['collectd']['types_db'] %>"
 Interval "<%= @node['collectd']['interval'] %>"
 ReadThreads "<%= @node['collectd']['read_threads'] %>"

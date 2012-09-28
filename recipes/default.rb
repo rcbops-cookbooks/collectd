@@ -21,15 +21,14 @@ if platform?(%w(redhat centos))
   include_recipe "yum::epel"
 end
 
-package "collectd" do
-  case node['platform']
-    when "ubuntu"
-      package_name "collectd-core"
-    when "fedora", "redhat", "centos"
-      package_name "collectd"
+platform_options = node["collectd"]["platform"]
+
+platform_options["collectd_packages"].each do |pkg|
+  package pkg do
+    action :upgrade
+    options platform_options["package_overrides"]
   end
 end
-
 service "collectd" do
   supports :restart => true, :status => true
 end
@@ -52,21 +51,31 @@ directory "/etc/collectd/thresholds" do
   mode "755"
 end
 
-directory node['collectd']['base_dir'] do
+directory platform_options["collectd_base_dir"] do
   owner "root"
   group "root"
   mode "755"
   recursive true
 end
 
-directory node['collectd']['plugin_dir'] do
+directory platform_options["collectd_plugin_dir"] do
   owner "root"
   group "root"
   mode "755"
   recursive true
 end
 
-%w(collectd collection thresholds).each do |file|
+template platform_options["collectd_config_file"] do
+  source "collectd.conf.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables("collectd_base_dir" => platform_options["collectd_base_dir"],
+            "collectd_plugin_dir" => platform_options["collectd_plugin_dir"]
+            )
+end
+
+%w(collection thresholds).each do |file|
   template "/etc/collectd/#{file}.conf" do
     source "#{file}.conf.erb"
     owner "root"
