@@ -88,7 +88,7 @@ end
 Chef::Log.error("Running old plugin deleterator")
 
 old_configs = node["monitoring"]["configs"] || []
-node["monitoring"]["configs"] = []
+node.set["monitoring"]["configs"] = []
 
 Dir['/etc/collectd/plugins/*.conf'] +
   Dir['/etc/collectd/thresholds/*.conf'].each do |path|
