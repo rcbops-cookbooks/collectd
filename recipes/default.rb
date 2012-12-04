@@ -33,6 +33,13 @@ service "collectd" do
   supports :restart => true, :status => true
 end
 
+cookbook_file "/etc/init.d/collectd" do
+  source "collectd-init"
+  owner "root"
+  group "root"
+  mode "755"
+end
+
 directory "/etc/collectd" do
   owner "root"
   group "root"
