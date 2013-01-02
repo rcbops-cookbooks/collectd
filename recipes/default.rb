@@ -92,7 +92,7 @@ end
   end
 end
 
-Chef::Log.error("Running old plugin deleterator")
+Chef::Log.info("Running old plugin deleterator")
 
 old_configs = node["monitoring"]["configs"] || []
 node.set["monitoring"]["configs"] = []
