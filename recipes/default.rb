@@ -25,7 +25,7 @@ platform_options = node["collectd"]["platform"]
 
 platform_options["collectd_packages"].each do |pkg|
   package pkg do
-    action :upgrade
+    action :install
     options platform_options["package_overrides"]
   end
 end
