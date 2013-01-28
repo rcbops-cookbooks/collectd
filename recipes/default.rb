@@ -38,6 +38,7 @@ cookbook_file "/etc/init.d/collectd" do
   owner "root"
   group "root"
   mode "755"
+  only_if { platform?(%w(ubuntu debian)) }
 end
 
 directory "/etc/collectd" do
