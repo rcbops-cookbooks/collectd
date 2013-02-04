@@ -18,9 +18,11 @@
 #
 
 define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil  do
-  config = "/etc/collectd/thresholds/#{params[:name]}.conf"
 
-  node["monitoring"]["configs"] << config
+  config = "/etc/collectd/thresholds/#{params[:name]}.conf"
+  configs = node["monitoring"]["configs"].dup
+  configs << config
+  node.set["monitoring"]["configs"] = configs
 
   template config do
     owner "root"
