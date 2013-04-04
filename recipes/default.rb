@@ -29,8 +29,10 @@ platform_options["collectd_packages"].each do |pkg|
     options platform_options["package_overrides"]
   end
 end
+
 service "collectd" do
   supports :restart => true, :status => true
+  action :enable
 end
 
 cookbook_file "/etc/init.d/collectd" do
@@ -116,6 +118,3 @@ Dir['/etc/collectd/plugins/*.conf'] +
   end
 end
 
-service "collectd" do
-  action [:enable, :start]
-end
