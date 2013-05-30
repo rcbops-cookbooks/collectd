@@ -81,8 +81,8 @@ template platform_options["collectd_config_file"] do
   group "root"
   mode "0644"
   variables("collectd_base_dir" => platform_options["collectd_base_dir"],
-            "collectd_plugin_dir" => platform_options["collectd_plugin_dir"]
-            )
+    "collectd_plugin_dir" => platform_options["collectd_plugin_dir"]
+  )
 end
 
 %w(collection thresholds).each do |file|
@@ -91,7 +91,7 @@ end
     owner "root"
     group "root"
     mode "644"
-    notifies :restart, resources(:service => "collectd")
+    notifies :restart, "service[collectd]"
   end
 end
 
@@ -100,8 +100,8 @@ Chef::Log.info("Running old plugin deleterator")
 old_configs = node["monitoring"]["configs"] || []
 node.set["monitoring"]["configs"] = []
 
-Dir['/etc/collectd/plugins/*.conf'] +
-  Dir['/etc/collectd/thresholds/*.conf'].each do |path|
+Dir['/etc/collectd/plugins/*.conf']
++ Dir['/etc/collectd/thresholds/*.conf'].each do |path|
 
   autogen = false
   File.open(path).each_line do |line|
@@ -117,4 +117,3 @@ Dir['/etc/collectd/plugins/*.conf'] +
     end
   end
 end
-
