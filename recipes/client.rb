@@ -20,17 +20,19 @@
 include_recipe "collectd"
 
 if Chef::Config[:solo]
-      Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
+  Chef::Log.warn("This recipe uses search. Chef Solo does not support search.")
 else
 
-    servers = []
-    search(:node, "recipes:collectd\\:\\:server AND chef_environment:#{node.chef_environment}") do |n|
-        servers << n['fqdn']
-    end
+  servers = []
+  search(:node, "recipes:collectd\\:\\:server AND
+         chef_environment:#{node.chef_environment}") do |n|
+    servers << n['fqdn']
+  end
 end
 
 if servers.empty?
-  raise "No servers found. Please configure at least one node with collectd::server."
+  raise "No servers found.
+  Please configure at least one node with collectd::server."
 end
 
 collectd_plugin "network" do

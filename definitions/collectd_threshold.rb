@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil  do
+define :collectd_threshold, :options => {}, :template => nil, :cookbook => nil do
 
   config = "/etc/collectd/thresholds/#{params[:name]}.conf"
   configs = node["monitoring"]["configs"].dup

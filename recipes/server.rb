@@ -19,9 +19,13 @@
 
 include_recipe "collectd"
 
-  collectd_plugin "network" do
+collectd_plugin "network" do
   if node['collectd']['is_proxy']
-    options :listen=>'0.0.0.0', :server=>node['collectd']['remote']['ip'], :Forward=>'True'
+    options(
+      :listen=>'0.0.0.0',
+      :server=>node['collectd']['remote']['ip'],
+      :Forward=>'True'
+    )
   else
     options :listen=>'0.0.0.0'
   end
