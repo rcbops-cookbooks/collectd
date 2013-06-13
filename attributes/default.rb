@@ -27,8 +27,7 @@ default['collectd']['timeout'] = 30  # 5 minutes, with default interval # node_a
 default['collectd']['collectd_web']['path'] = "/srv/collectd_web"       # node_attribute
 default['collectd']['collectd_web']['hostname'] = "collectd"            # node_attribute
 
-case platform
-when "redhat", "centos", "fedora"
+if platform_family?("rhel")
   default["collectd"]["platform"] = {
     "collectd_packages" => ["collectd"],                                # node_attribute
     "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute
@@ -36,7 +35,7 @@ when "redhat", "centos", "fedora"
     "collectd_config_file" => "/etc/collectd.conf",                     # node_attribute
     "package_overrides" => ""                                           # node_attribute
   }
-when "ubuntu"
+elsif platform_family?("debian")
   default["collectd"]["platform"] = {
     "collectd_packages" => ["collectd-core"],                           # node_attribute
     "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute

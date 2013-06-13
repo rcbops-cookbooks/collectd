@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if platform?(%w(redhat centos))
+if platform_family?("rhel")
   include_recipe "yum::epel"
 end
 

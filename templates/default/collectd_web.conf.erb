@@ -21,12 +21,12 @@
         Allow from all
     </Directory>
 
-    ErrorLog /var/log/apache2/error.log
+    ErrorLog <%= @node[:apache][:log_dir] %>/error.log
 
     # Possible values include: debug, info, notice, warn, error, crit,
     # alert, emerg.
     LogLevel warn
 
-    CustomLog /var/log/apache2/access.log combined
+    CustomLog <%= @node[:apache][:log_dir] %>/access.log combined
     ServerSignature On
 </VirtualHost>
