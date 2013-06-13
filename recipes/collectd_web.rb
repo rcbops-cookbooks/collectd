@@ -20,7 +20,13 @@
 include_recipe "collectd"
 include_recipe "apache2"
 
-%w(libhtml-parser-perl liburi-perl librrds-perl libjson-perl).each do |name|
+if platform_family?("debian")
+  packages = %w(libhtml-parser-perl liburi-perl librrds-perl libjson-perl)
+elsif platform_family?("rhel")
+  packages = %w{perl-HTML-Parser perl-URI rrdtool-perl perl-JSON}
+end
+
+packages.each do |name|
   package name
 end
 
@@ -45,7 +51,7 @@ bash "install_collectd_web" do
   EOH
 end
 
-template "/etc/apache2/sites-available/collectd_web.conf" do
+template "#{node['apache']['dir']}/sites-available/collectd_web.conf" do
   source "collectd_web.conf.erb"
   owner "root"
   group "root"

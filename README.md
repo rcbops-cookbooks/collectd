@@ -13,17 +13,29 @@ Please title the issue as follows:
 In the issue description, please include a longer description of the issue, along with any relevant log/command/error output.  
 If logfiles are extremely long, please place the relevant portion into the issue description, and link to a gist containing the entire logfile
 
-# DESCRIPTION #
+# Requirements #
 
-Configure and install the [collectd](http://collectd.org/) monitoring daemon.
+Chef 11.0 or higher required (for Chef environment use).
 
-# REQUIREMENTS #
+## Platforms ##
 
-This cookbook has only been tested on Ubuntu 10.04.
+This cookbook is actively tested on the following platforms/versions:
 
-To use the `collectd::collectd_web` recipe you need the [apache2](https://github.com/opscode/cookbooks/tree/master/apache2) cookbook.
+* Ubuntu-12.04
+* CentOS-6.3
 
-The [collectd_plugins](#) cookbook is not required, but provides many common plugin definitions for easy reuse.
+While not actively tested, this cookbook should also work the following platforms:
+
+* Debian/Mint derivitives
+* Amazon/Oracle/Scientific/RHEL
+
+## Cookbooks ##
+
+The following cookbooks are dependencies:
+
+* apache2
+* collectd-plugins
+* yum
 
 # ATTRIBUTES #
 
