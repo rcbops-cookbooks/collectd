@@ -33,7 +33,7 @@ if platform_family?("rhel")
     "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute
     "collectd_plugin_dir" => "/usr/lib64/collectd",                     # node_attribute
     "collectd_config_file" => "/etc/collectd.conf",                     # node_attribute
-    "package_overrides" => ""                                           # node_attribute
+    "package_options" => ""                                           # node_attribute
   }
 elsif platform_family?("debian")
   default["collectd"]["platform"] = {
@@ -41,6 +41,6 @@ elsif platform_family?("debian")
     "collectd_base_dir" => "/var/lib/collectd",                         # node_attribute
     "collectd_plugin_dir" => "/usr/lib/collectd",                       # node_attribute
     "collectd_config_file" => "/etc/collectd/collectd.conf",            # node_attribute
-    "package_overrides" => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'" # node_attribute
+    "package_options" => "-o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-confdef'" # node_attribute
   }
 end
