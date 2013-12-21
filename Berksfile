@@ -10,7 +10,7 @@ group :test do
   cookbook "apache2",          :git => "https://github.com/opscode-cookbooks/apache2.git"
   cookbook "apt",              :git => "https://github.com/opscode-cookbooks/apt.git"
   cookbook "collectd-plugins", :git => "https://github.com/rcbops-cookbooks/collectd-plugins.git", :branch => "grizzly"
-  cookbook "yum",              :git => "https://github.com/opscode-cookbooks/yum.git"
+  cookbook "yum-epel",         :git => "https://github.com/opscode-cookbooks/yum-epel.git"
 
   # use our local test cookbooks
   cookbook "collectd_test", :path => "./test/cookbooks/collectd_test"

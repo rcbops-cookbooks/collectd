@@ -10,7 +10,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
   supports os
 end
 
-%w{ apache2 collectd-plugins yum }.each do |dep|
+%w{ apache2 collectd-plugins yum-epel }.each do |dep|
   depends dep
 end
 

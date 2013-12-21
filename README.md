@@ -37,7 +37,7 @@ The following cookbooks are dependencies:
 
 * apache2
 * collectd-plugins
-* yum
+* yum-epel
 
 # ATTRIBUTES #
 
