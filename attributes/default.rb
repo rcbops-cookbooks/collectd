@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+default['monitoring']['configs'] = []
+
 default['collectd']['types_db'] = "/usr/share/collectd/types.db"        # node_attribute
 default['collectd']['interval'] = 10                                    # node_attribute (inherited from cluster?)
 default['collectd']['read_threads'] = 5                                 # node_attribute (inherited from cluster?)
