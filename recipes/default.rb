@@ -18,7 +18,7 @@
 #
 
 if platform_family?("rhel")
-  include_recipe "yum::epel"
+  include_recipe "yum-epel"
 end
 
 platform_options = node["collectd"]["platform"]
