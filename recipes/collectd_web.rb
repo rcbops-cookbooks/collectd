@@ -36,19 +36,16 @@ directory node['collectd']['collectd_web']['path'] do
   mode "755"
 end
 
-bash "install_collectd_web" do
-  user "root"
+remote_file "collectd-web tarball" do
+  path "#{Chef::Config[:file_cache_path]}/collectd-web.tar.gz"
+  source "https://github.com/httpdss/collectd-web/tarball/master"
+  notifies :run, 'execute[install collectd-web]', :immediately
+end
+
+execute "install collectd-web" do
   cwd node['collectd']['collectd_web']['path']
-  not_if do
-    File.exists?(
-      File.join(node['collectd']['collectd_web']['path'], "index.html")
-    )
-  end
-  code <<-EOH
-    wget --no-check-certificate -O collectd-web.tar.gz https://github.com/httpdss/collectd-web/tarball/master
-    tar --strip-components=1 -xzf collectd-web.tar.gz
-    rm collectd-web.tar.gz
-  EOH
+  command "tar --strip-components=1 -xzf #{Chef::Config[:file_cache_path]}/collectd-web.tar.gz"
+  action File.exist?(File.join(node['collectd']['collectd_web']['path'], "index.html")) ? :nothing : :run
 end
 
 template "#{node['apache']['dir']}/sites-available/collectd_web.conf" do
