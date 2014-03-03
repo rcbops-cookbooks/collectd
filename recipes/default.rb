@@ -97,9 +97,6 @@ end
 
 Chef::Log.info("Running old plugin deleterator")
 
-old_configs = node["monitoring"]["configs"] || []
-node.set["monitoring"]["configs"] = []
-
 conf_files = Dir['/etc/collectd/plugins/*.conf'] \
   + Dir['/etc/collectd/thresholds/*.conf']
 
@@ -112,9 +109,11 @@ conf_files.each do |path|
     end
   end
   if autogen
-    if not old_configs.include?(path)
+    if not node["monitoring"]["configs"].include?(path)
       Chef::Log.info("Deleting old config in #{path}")
       File.unlink(path)
     end
   end
 end
+
+node.set["monitoring"]["configs"] = []
