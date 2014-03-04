@@ -45,7 +45,7 @@ end
 execute "install collectd-web" do
   cwd node['collectd']['collectd_web']['path']
   command "tar --strip-components=1 -xzf #{Chef::Config[:file_cache_path]}/collectd-web.tar.gz"
-  action :nothing
+  action File.exist?(File.join(node['collectd']['collectd_web']['path'], "index.html")) ? :nothing : :run
 end
 
 template "#{node['apache']['dir']}/sites-available/collectd_web.conf" do
